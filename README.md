@@ -125,13 +125,14 @@ fail2ban實際運作方式是：
 3. 在jail.local呼叫config和log並進行偵測
 <br>
 1. phpmyadmin沒有自己的log，但是可以去apache的access_log找<br>
+
 連續2次登入失敗
 ```markdown
 192.168.43.81 - - [19/Dec/2019:05:43:21 +0800] "POST /phpmyadmin/index.php HTTP/1.1" 200 3679 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36"
 192.168.43.81 - - [19/Dec/2019:05:43:37 +0800] "POST /phpmyadmin/index.php HTTP/1.1" 200 3679 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36"
 ```
 登入成功
-```markdown
+```
 192.168.43.81 - - [19/Dec/2019:05:43:49 +0800] "POST /phpmyadmin/index.php HTTP/1.1" 302 20 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36"
 192.168.43.81 - - [19/Dec/2019:05:43:49 +0800] "GET /phpmyadmin/index.php HTTP/1.1" 200 14065 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36"
 192.168.43.81 - - [19/Dec/2019:05:43:50 +0800] "GET /phpmyadmin/phpmyadmin.css.php?nocache=4725525373ltr&server=1 HTTP/1.1" 200 20802 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36"
@@ -142,10 +143,11 @@ fail2ban實際運作方式是：
 192.168.43.81 - - [19/Dec/2019:05:59:33 +0800] "GET /phpmyadmin/themes/pmahomme/img/s_unlink.png HTTP/1.1" 200 589 "http://192.168.43.109/phpmyadmin/phpmyadmin.css.php?nocache=4725525373ltr&server=1" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36"
 ```
 登出
-```markdown
+```
 192.168.43.81 - - [19/Dec/2019:05:59:34 +0800] "POST /phpmyadmin/logout.php HTTP/1.1" 302 8761 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36"
 192.168.43.81 - - [19/Dec/2019:05:59:34 +0800] "GET /phpmyadmin/index.php HTTP/1.1" 200 3633 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36"
 ```
+
 <br>
 可以看出一些規則，中間有一些內容是登入失敗才會出現的地方<br>
 ... "POST /phpmyadmin/index.php HTTP/1.1" 200 ...<br>
@@ -215,10 +217,10 @@ sender可以不寫。<br>
 jail.local 檔案到這邊已經算是全部配置完成了，
 ```markdown
 [DEFAULT]
-ignoreip = 127.0.0.1/8	# 白名單IP
-bantime  = 300	# 封鎖的時間，單位:秒，300=5分鐘，改為 -1 表示「永久」封鎖
-findtime = 600	# 在多久的時間內，單位:秒，600=10分鐘
-maxretry = 3	# 登入失敗幾次封鎖
+ignoreip = 127.0.0.1/8  # 白名單IP
+bantime  = 300  # 封鎖的時間，單位:秒，300=5分鐘，改為 -1 表示「永久」封鎖
+findtime = 600  # 在多久的時間內，單位:秒，600=10分鐘
+maxretry = 3  # 登入失敗幾次封鎖
 
 [sshd]
 enabled  = true
